@@ -7,11 +7,11 @@
 [![Join the chat at https://gitter.im/ethereum/remix](https://badges.gitter.im/ethereum/remix.svg)](https://gitter.im/ethereum/remix?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter Follow](https://img.shields.io/twitter/follow/ethereumremix?style=social)](https://twitter.com/ethereumremix)
 
-# Remix Project
+# Editor Project
 
-**Remix Project** is a platform for development tools that use a plugin architecture. It encompasses sub-projects including Remix Plugin Engine, Remix Libraries, and of course Remix IDE.
+**Editor Project** is a platform for development tools that use a plugin architecture. It encompasses sub-projects including Remix Plugin Engine, Remix Libraries, and of course Remix IDE.
 
-**Remix IDE** is an open source web and desktop application. It fosters a fast development cycle and has a rich set of plugins with intuitive GUIs. Remix is used for the **entire journey of contract development with [Solidity language](https://soliditylang.org/)** as well as a playground for learning and teaching [Ethereum](https://ethereum.org/).
+**Editor IDE** is an open source web and desktop application. It fosters a fast development cycle and has a rich set of plugins with intuitive GUIs. Remix is used for the **entire journey of contract development with [Solidity language](https://soliditylang.org/)** as well as a playground for learning and teaching [Ethereum](https://ethereum.org/).
 
 Start developing using Remix on browser, visit: [https://remix.ethereum.org](https://remix.ethereum.org)
 
@@ -45,27 +45,27 @@ npm install -g @nrwl/cli
 * Clone the github repository (`wget` need to be installed first):
 
 ```bash
-git clone https://github.com/ethereum/remix-project.git
+git clone https://github.com/icpfoundation/editor-project.git
 ```
-* Build `remix-project`:
+* Build `editor-project`:
 ```bash
-cd remix-project
+cd editor-project
 npm install
-npm run build:libs // Build remix libs
+npm run build:libs // Build editor libs
 nx build
 nx serve
 ```
 
-Open `http://127.0.0.1:8080` in your browser to load Remix IDE locally.
+Open `http://127.0.0.1:8080` in your browser to load Chain-Cloud IDE locally.
 
 Go to your `text editor` and start developing. Browser will automatically refresh when files are saved.
 
 ## Production Build
-To generate react production builds for remix-project.
+To generate react production builds for editor-project.
 ```bash
 npm run build:production
 ```
-Build can be found in `remix-project/dist/apps/remix-ide` directory.
+Build can be found in `editor-project/dist/apps/remix-ide` directory.
 
 ```bash
 npm run serve:production
