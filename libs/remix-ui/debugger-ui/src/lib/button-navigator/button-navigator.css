@@ -1,0 +1,26 @@
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+.stepButtons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.stepButton {
+}
+.jumpButtons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.jumpButton {
+}
+.navigator {
+}
+.navigator:hover {
+}
+
+.cursorPointerRemixDebugger {
+    cursor: pointer;
+}
