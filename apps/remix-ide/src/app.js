@@ -64,6 +64,8 @@ class AppComponent {
     // setup storage
     const configStorage = new Storage('config-v0.8:')
 
+    window.localStorage.removeItem('LOGs_FILE')
+
     // load app config
     const config = new Config(configStorage)
     Registry.getInstance().put({ api: config, name: 'config' })

@@ -5,6 +5,7 @@ import { initialState, registerCommandReducer, addCommandHistoryReducer, registe
 import { getKeyOf, getValueOf, Objectfilter, matched } from './utils/utils'
 import {allCommands, allPrograms} from './commands' // eslint-disable-line
 import TerminalWelcomeMessage from './terminalWelcome' // eslint-disable-line
+import TerminalLogMessage from './terminallog' // eslint-disable-line
 import { Toaster } from '@remix-ui/toaster' // eslint-disable-line
 import { ModalDialog } from '@remix-ui/modal-dialog' // eslint-disable-line
 
@@ -448,8 +449,8 @@ export const RemixUiTerminal = (props: RemixUiTerminalProps) => {
             <i className="fas fa-ban" aria-hidden="true" title="Clear console"
             ></i>
           </div>
-          <div className="mx-2" title='Pending Transactions'>0</div>
-          <div className="pt-1 h-80 mx-3 align-items-center remix_ui_terminal_listenOnNetwork custom-control custom-checkbox">
+          {/* <div className="mx-2" title='Pending Transactions'>0</div> */}
+          {/* <div className="pt-1 h-80 mx-3 align-items-center remix_ui_terminal_listenOnNetwork custom-control custom-checkbox">
             <input
               className="custom-control-input"
               id="listenNetworkCheck"
@@ -464,8 +465,8 @@ export const RemixUiTerminal = (props: RemixUiTerminalProps) => {
             >
               listen on all transactions
             </label>
-          </div>
-          <div className="remix_ui_terminal_search d-flex align-items-center h-100">
+          </div> */}
+          {/* <div className="remix_ui_terminal_search d-flex align-items-center h-100">
             <i
               className="remix_ui_terminal_searchIcon d-flex align-items-center justify-content-center fas fa-search bg-light"
               aria-hidden="true">
@@ -477,17 +478,19 @@ export const RemixUiTerminal = (props: RemixUiTerminalProps) => {
               id="searchInput"
               placeholder="Search with transaction hash or address"
               data-id="terminalInputSearch" />
-          </div>
+          </div> */}
         </div>
-      </div>
+      </div> 
+
       <div tabIndex={-1} className="remix_ui_terminal_container d-flex h-100 m-0 flex-column" data-id="terminalContainer" >
         {
           handleAutoComplete()
         }
         <div className="position-relative d-flex flex-column-reverse h-100">
           <div id='journal' className='remix_ui_terminal_journal d-flex flex-column pt-3 pb-4 px-2 mx-2 mr-0' data-id='terminalJournal'>
-            {!clearConsole && <TerminalWelcomeMessage storage={storage} packageJson={version}/>}
-            {newstate.journalBlocks && newstate.journalBlocks.map((x, index) => {
+            {!clearConsole && <TerminalLogMessage />}
+
+            {/* {newstate.journalBlocks && newstate.journalBlocks.map((x, index) => {
               if (x.name === EMPTY_BLOCK) {
                 return (
                   <div className={classNameBlock} data-id='block' key={index}>
@@ -564,7 +567,7 @@ export const RemixUiTerminal = (props: RemixUiTerminalProps) => {
                   )
                 }
               }
-            })}
+            })} */}
             <div ref={messagesEndRef} />
           </div>
           { isOpen && <div id="terminalCli" data-id="terminalCli" className="remix_ui_terminal_cli position-absolute w-100" onClick={focusinput}>

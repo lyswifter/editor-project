@@ -362,14 +362,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
     // api.runScriptAfterCompilation(currentFile)
     // compileTabLogic.runCompiler(externalCompType)
 
-  // const [cloneurl, setcloneurl] = useState(null)
-  // const [selectbranch, setselectbranch] = useState(null)
-  // const [canistername, setcanistername] = useState(null)
-  // const [resourcepath, setresourcepath] = useState(null)
-  // const [principle, setprinciple] = useState(null)
-  // const [buildcmd, setbuildcmd] = useState(null)
-  // const [location, setlocation] = useState("main")
-
     console.log("start compile")
     console.log(selectframework)
     console.log(reponame)
@@ -577,6 +569,8 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
     let principle = window.localStorage.getItem("principleString");
     let cloneUrl = window.localStorage.getItem("CLONE_URL");
 
+    window.localStorage.setItem("REPO_NAME", reponame)
+
     try {
       axios.get(tiggerBuildUrl, {
         params: {
@@ -592,8 +586,8 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
         }
       })
       .then(function (response) {
-        ////
-        console.log(response)
+        console.log(reponame + response.data.connectionid)
+        window.localStorage.setItem('LOGs_FILE', response.data.connectionid)
       })
     }
     catch(err) {
