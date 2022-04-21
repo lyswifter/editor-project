@@ -242,8 +242,8 @@ export const RemixUiSettings = (props: RemixUiSettingsProps) => {
       {state.message ? <Toaster message= {state.message}/> : null}
       {generalConfig()}     
       {token('gist')}
-      {token('etherscan')}
-      {swarmSettings()}
+      {/* {token('etherscan')} */}
+      {/* {swarmSettings()} */}
       <RemixUiThemeModule themeModule={props._deps.themeModule} />
     </div>
   )

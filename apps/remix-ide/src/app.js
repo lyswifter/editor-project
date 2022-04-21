@@ -306,7 +306,7 @@ class AppComponent {
     )
 
     this.engine.register([
-      // compileTab,
+      compileTab,
       // run,
       debug,
       analysis,
@@ -330,6 +330,7 @@ class AppComponent {
   }
 
   async activate () {
+    console.log("activate function tigger")
     const queryParams = new QueryParams()
     const params = queryParams.get()
     
