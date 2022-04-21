@@ -24,7 +24,7 @@ export class WalkthroughService extends Plugin {
     if (!localStorage.getItem('hadTour_initial')) {
       introJs().setOptions({
         steps: [{
-          title: 'Welcome to Remix IDE',
+          title: 'Welcome to Chain-Cloud IDE',
           intro: 'Click to launch the Home tab that contains links, tips, and shortcuts..',
           element: document.querySelector('#verticalIconsHomeIcon'),
           tooltipClass: 'bg-light text-dark',
@@ -32,15 +32,15 @@ export class WalkthroughService extends Plugin {
         },
         {
           element: document.querySelector('#verticalIconsKindsolidity'),
-          title: 'Solidity Compiler',
-          intro: 'Having selected a .sol file in the File Explorers (the icon above), compile it with the Solidity Compiler.',
+          title: 'Online Compiler',
+          intro: 'Having selected a dfx file in the File Explorers (the icon above), compile it with the Online Compiler.',
           tooltipClass: 'bg-light text-dark',
           position: 'right'
         },
         {
-          title: 'Deploy your contract',
+          title: 'Deploy your canister',
           element: document.querySelector('#verticalIconsKindudapp'),
-          intro: 'Choose a chain, deploy a contract and play with your functions.',
+          intro: 'Choose to deploy a canister and play with your functions.',
           tooltipClass: 'bg-light text-dark',
           position: 'right'
         }

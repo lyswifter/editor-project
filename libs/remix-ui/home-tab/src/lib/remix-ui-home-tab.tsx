@@ -98,10 +98,10 @@ export const RemixUiHomeTab = (props: RemixUiHomeTabProps) => {
     window.addEventListener('click', (event) => {
       const target = event.target as Element
       const id = target.id
-      if (id !== 'remixIDEHomeTwitterbtn' && id !== 'remixIDEHomeMediumbtn' && !rightPanel.current.contains(event.target)) {
-        // todo check event.target
-        setState(prevState => { return { ...prevState, showMediaPanel: 'none' } })
-      }
+      // if (id !== 'remixIDEHomeTwitterbtn' && id !== 'remixIDEHomeMediumbtn' && !rightPanel.current.contains(event.target)) {
+      //   // todo check event.target
+      //   setState(prevState => { return { ...prevState, showMediaPanel: 'none' } })
+      // }
     })
     // to retrieve twitter feed
     const scriptTwitter = document.createElement('script')

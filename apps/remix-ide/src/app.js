@@ -309,7 +309,7 @@ class AppComponent {
 
     this.engine.register([
       compileTab,
-      // run,
+      run,
       debug,
       analysis,
       test,

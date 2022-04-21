@@ -89,7 +89,7 @@ const TerminalLogMessage = () => {
                     setdeployLog(retLog)
                 }
             })
-    }, 5000);
+    }, 3000);
 
     return (
         <div className="remix_ui_terminal_block px-4 " data-id="block_null">Chain-Cloud IDE Compile and Deploy Logs
