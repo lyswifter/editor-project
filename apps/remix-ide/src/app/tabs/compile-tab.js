@@ -11,13 +11,13 @@ import { compilerConfigChangedToastMsg, compileToastMsg } from '@remix-ui/helper
 
 const profile = {
   name: 'solidity',
-  displayName: 'Solidity compiler',
+  displayName: 'Dfx compiler',
   icon: 'assets/img/solidity.webp',
   description: 'Compile solidity contracts',
   kind: 'compiler',
   permission: true,
   location: 'sidePanel',
-  documentation: 'https://remix-ide.readthedocs.io/en/latest/solidity_editor.html',
+  documentation: 'https://github.com/icpfoundation',
   version: packageJson.version,
   methods: ['getCompilationResult', 'compile', 'compileWithParameters', 'setCompilerConfig', 'compileFile', 'getCompilerState']
 }

@@ -11,10 +11,10 @@ const profile = {
   methods: ['get'],
   events: [],
   icon: 'assets/img/settings.webp',
-  description: 'Remix-IDE settings',
+  description: 'ChainCloud-IDE settings',
   kind: 'settings',
   location: 'sidePanel',
-  documentation: 'https://remix-ide.readthedocs.io/en/latest/settings.html',
+  documentation: 'https://github.com/icpfoundation',
   version: packageJson.version,
   permission: true
 }

@@ -14,7 +14,7 @@ const profile = {
   description: 'execute and save transactions',
   kind: 'udapp',
   location: 'sidePanel',
-  documentation: 'https://remix-ide.readthedocs.io/en/latest/run.html',
+  documentation: 'https://github.com/icpfoundation',
   version: packageJson.version,
   permission: true,
   events: ['newTransaction'],

@@ -36,7 +36,7 @@ const profile = {
   description: ' - ',
   kind: 'fileexplorer',
   location: 'sidePanel',
-  documentation: 'https://remix-ide.readthedocs.io/en/latest/file_explorer.html',
+  documentation: 'https://github.com/icpfoundation',
   version: packageJson.version
 }
 module.exports = class Filepanel extends ViewPlugin {
