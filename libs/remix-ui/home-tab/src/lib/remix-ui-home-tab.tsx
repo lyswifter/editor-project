@@ -296,7 +296,8 @@ export const RemixUiHomeTab = (props: RemixUiHomeTabProps) => {
                   <button className="btn mx-1 btn-secondary" onClick={() => showFullMessage('Https', 'http/https raw content', ['https://raw.githubusercontent.com/OpenZeppelin/openzeppelin-contracts/master/contracts/token/ERC20/ERC20.sol'])}>https</button>
                 </div> */}
               </div>
-              <div className="ml-4 pl-4">
+              
+              {/* <div className="ml-4 pl-4">
                 <h4>Resources</h4>
                 <p className="mb-1">
                   <i className="mr-2 fas fa-book"></i>
@@ -314,7 +315,7 @@ export const RemixUiHomeTab = (props: RemixUiHomeTabProps) => {
                   <i className="mr-2 fab fa-ethereum remixui_home_image"></i>
                   <label className="remixui_home_text" onClick={() => switchToPreviousVersion()}>Old experience</label>
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
