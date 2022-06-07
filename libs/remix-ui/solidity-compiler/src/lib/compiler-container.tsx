@@ -41,7 +41,8 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
     includeNightlies: false,
     language: 'Solidity',
     framework: 'dfx',
-    evmVersion: ''
+    evmVersion: '',
+    principal: ''
   })
   const [disableCompileButton, setDisableCompileButton] = useState<boolean>(false)
   const compileIcon = useRef(null)
@@ -89,6 +90,7 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
         setState(prevState => {
           const params = api.getCompilerParameters()
           const optimize = params.optimize
+          const principal = params.principal
           const runs = params.runs as string
           const evmVersion = compileTabLogic.evmVersions.includes(params.evmVersion) ? params.evmVersion : 'default'
           const language = getValidLanguage(params.language)
@@ -99,6 +101,7 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
             autoCompile: autocompile,
             includeNightlies: includeNightlies,
             optimize: optimize,
+            principal: principal,
             runs: runs,
             evmVersion: (evmVersion !== null) && (evmVersion !== 'null') && (evmVersion !== undefined) && (evmVersion !== 'undefined') ? evmVersion : 'default',
             language: (language !== null) ? language : 'Solidity'
@@ -109,9 +112,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
   }, [compileTabLogic])
 
   useEffect(() => {
-    // const isDisabled = !compiledFileName || (compiledFileName && !isSolFileSelected(compiledFileName))
-
-    // setDisableCompileButton(isDisabled)
     setState(prevState => {
       return { ...prevState, compiledFileName }
     })
@@ -168,47 +168,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
 
   // fetching both normal and wasm builds and creating a [version, baseUrl] map
   const fetchAllVersion = async (callback) => {
-    // let selectedVersion, allVersionsWasm, isURL
-    // let allVersions = [{ path: 'builtin', longVersion: 'latest local version - ' + state.defaultVersion }]
-    // // fetch normal builds
-    // const binRes: any = await promisedMiniXhr(`${baseURLBin}/list.json`)
-    // // fetch wasm builds
-    // const wasmRes: any = await promisedMiniXhr(`${baseURLWasm}/list.json`)
-    // if (binRes.event.type === 'error' && wasmRes.event.type === 'error') {
-    //   selectedVersion = 'builtin'
-    //   return callback(allVersions, selectedVersion)
-    // }
-    // try {
-    //   const versions = JSON.parse(binRes.json).builds.slice().reverse()
-
-    //   allVersions = [...allVersions, ...versions]
-    //   selectedVersion = state.defaultVersion
-    //   if (api.getCompilerParameters().version) selectedVersion = api.getCompilerParameters().version
-    //   // Check if version is a URL and corresponding filename starts with 'soljson'
-    //   if (selectedVersion.startsWith('https://')) {
-    //     const urlArr = selectedVersion.split('/')
-
-    //     if (urlArr[urlArr.length - 1].startsWith('soljson')) isURL = true
-    //   }
-    //   if (wasmRes.event.type !== 'error') {
-    //     allVersionsWasm = JSON.parse(wasmRes.json).builds.slice().reverse()
-    //   }
-    // } catch (e) {
-    //   tooltip('Cannot load compiler version list. It might have been blocked by an advertisement blocker. Please try deactivating any of them from this page and reload. Error: ' + e)
-    // }
-    // // replace in allVersions those compiler builds which exist in allVersionsWasm with new once
-    // if (allVersionsWasm && allVersions) {
-    //   allVersions.forEach((compiler, index) => {
-    //     const wasmIndex = allVersionsWasm.findIndex(wasmCompiler => { return wasmCompiler.longVersion === compiler.longVersion })
-    //     if (wasmIndex !== -1) {
-    //       allVersions[index] = allVersionsWasm[wasmIndex]
-    //       pathToURL[compiler.path] = baseURLWasm
-    //     } else {
-    //       pathToURL[compiler.path] = baseURLBin
-    //     }
-    //   })
-    // }
-
     let allVersions = [{ path: 'builtin', longVersion: "dfx-0.8.1" }, { path: 'builtin', longVersion: "dfx-0.9.1" }];
     let selectedVersion = "0.8.1";
     let isURL = false;
@@ -352,15 +311,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
   }
 
   const compileAndRun = () => {
-
-    // if (!isSolFileSelected()) return
-
-    // _setCompilerVersionFromPragma(currentFile)
-    // let externalCompType
-    // if (hhCompilation) externalCompType = 'hardhat'
-    // else if (truffleCompilation) externalCompType = 'truffle'
-    // api.runScriptAfterCompilation(currentFile)
-    // compileTabLogic.runCompiler(externalCompType)
 
     console.log("start compile")
     console.log(selectframework)
@@ -567,16 +517,24 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
 
   function deployAction() {
     let principle = window.localStorage.getItem("principleString");
-    let cloneUrl = window.localStorage.getItem("CLONE_URL");
-
     window.localStorage.setItem("REPO_NAME", reponame)
+
+    if (selectframework == "reactjs") {
+      setresourcepath("build")
+    } else if (selectframework == "nextjs") {
+      setresourcepath("out/_next")
+    } else if (selectframework == "nuxtjs") {
+      setresourcepath("public")
+    } else {
+      setresourcepath("dist")
+    }
 
     try {
       axios.get(tiggerBuildUrl, {
         params: {
             framework: selectframework,
             reponame: reponame,
-            repourl: cloneUrl,
+            repourl: cloneurl,
             branch: selectbranch,
             location: location,
             canistername: canistername,
@@ -617,11 +575,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
             </select>
           </div>
 
-          {/* <div className="mb-2 remixui_nightlyBuilds custom-control custom-checkbox">
-            <input className="mr-2 custom-control-input" id="nightlies" type="checkbox" onChange={handleNightliesChange} checked={state.includeNightlies} />
-            <label htmlFor="nightlies" data-id="compilerNightliesBuild" className="form-check-label custom-control-label">Include nightly builds</label>
-          </div> */}
-
           <div className="mb-2">
             <label className="remixui_compilerLabel form-check-label" htmlFor="compilierLanguageSelector">Platform</label>
             <select onChange={(e) => setselectframework(e.target.value)} value={selectframework} className="custom-select" id="compilierLanguageSelector" title="Available since v0.5.7">
@@ -631,6 +584,17 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
               <option value='nuxtjs'>Nuxt.js</option>
               <option value='nextjs'>Next.js</option>
             </select>
+          </div>
+
+          <div className="mb-2">
+            <label className="remixui_compilerLabel form-check-label" htmlFor="compilierLanguageSelector">GithubUser</label>
+            <input
+              onChange={(event) => setcloneurl(event.target.value.trim()) }
+              type="text"
+              className="remix_ui_terminal_filter border form-control"
+              id="userinput"
+              placeholder="Input github user name to access"
+              data-id="githubuserinput" />
           </div>
 
           <div className="mb-2">
@@ -666,13 +630,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
               data-id="canisternameinput" />
           </div>
 
-          {/* <div className="mb-2">
-            <label className="remixui_compilerLabel form-check-label" htmlFor="evmVersionSelector">EVM Version</label>
-            <select value={state.evmVersion} onChange={(e) => handleEvmVersionChange(e.target.value)} className="custom-select" id="evmVersionSelector">
-              {compileTabLogic.evmVersions.map((version, index) => (<option key={index} data-id={state.evmVersion === version ? 'selected' : ''} value={version}>{version}</option>))}
-            </select>
-          </div> */}
-
           <div className="mt-3">
             <p className="mt-2 remixui_compilerLabel">Compiler Configuration</p>
             <div className="mt-2 remixui_compilerConfig custom-control custom-checkbox">
@@ -684,28 +641,11 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
               <div className="justify-content-between align-items-center d-flex">
                 <input onChange={(e) => { handleOptimizeChange(e.target.checked) }} className="custom-control-input" id="optimize" type="checkbox" checked={state.optimize} />
                 <label className="form-check-label custom-control-label" htmlFor="optimize">Enable optimization</label>
-                {/* <input
-                  min="1"
-                  className="custom-select ml-2 remixui_runs"
-                  id="runs"
-                  placeholder="200"
-                  value={state.runs}
-                  type="number"
-                  title="Estimated number of times each opcode of the deployed code will be executed across the life-time of the contract."
-                  onChange={(e) => onChangeRuns(e.target.value)}
-                  disabled={!state.optimize}
-                /> */}
               </div>
             </div>
 
             <div className="mt-2 remixui_compilerConfig custom-control">
-              {/* <input className="remixui_autocompile custom-control-input" onChange={handleHideWarningsChange} id="hideWarningsBox" type="checkbox" title="Hide warnings" checked={state.hideWarnings} />
-              <label className="form-check-label custom-control-label" htmlFor="hideWarningsBox">Hide warnings</label> */}
-
-              {/* <input type="text" className="" name="canister-name" id="" />
-              <label className="form-check-label custom-control-label" htmlFor="optimize">Canister Name</label> */}
             </div>
-
           </div>
           {
             isHardhatProject &&
@@ -740,20 +680,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
             </div>
           }
           <div>
-            {/* <button id="compileBtn" data-id="compilerContainerCompileBtn" className="btn btn-primary btn-block d-block w-100 text-break remixui_disabled mb-1 mt-3" onClick={compile} disabled={disableCompileButton}>
-              <OverlayTrigger overlay={
-                <Tooltip id="overlay-tooltip-compile">
-                  <div className="text-left">
-                    <div><b>Ctrl+S</b> for compiling</div>
-                  </div>
-                </Tooltip>
-              }>
-                <span>
-                  {<i ref={compileIcon} className="fas fa-sync remixui_iconbtn" aria-hidden="true"></i>}
-                  Compile {typeof state.compiledFileName === 'string' ? extractNameFromKey(state.compiledFileName) || '<no file selected>' : '<no file selected>'}
-                </span>
-              </OverlayTrigger>
-            </button> */}
             <div className='d-flex align-items-center'>
               <button id="compileAndRunBtn" data-id="compilerContainerCompileAndRunBtn" className="btn btn-secondary btn-block d-block w-100 text-break remixui_solidityCompileAndRunButton d-inline-block remixui_disabled mb-1 mt-3" onClick={compileAndRun} disabled={disableCompileButton}>
                 <OverlayTrigger overlay={
@@ -768,32 +694,6 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
                   </span>
                 </OverlayTrigger>
               </button>
-              {/* <OverlayTrigger overlay={ */}
-                {/* <Tooltip id="overlay-tooltip-compile-run-doc"> */}
-                  {/* <div className="text-left p-2"> */}
-                    {/* <div>Choose the script to execute right after compilation by adding the `dev-run-script` natspec tag, as in:</div> */}
-                    {/* <pre> */}
-                      {/* <code> */}
-                      {/* /**<br /> */}
-                        {/* * @title ContractName<br /> */}
-                        {/* * @dev ContractDescription<br /> */}
-                        {/* * @custom:dev-run-script file_path<br /> */}
-                        {/* <br /> */}
-                        {/* contract ContractName {'{}'}<br /> */}
-                      {/* </code> */}
-                    {/* </pre> */}
-                    {/* Click to know more */}
-                  {/* </div> */}
-                {/* </Tooltip> */}
-              {/* }> */}
-                {/* <a href="https://remix-ide.readthedocs.io/en/latest/running_js_scripts.html#compile-a-contract-and-run-a-script-on-the-fly" target="_blank" ><i className="pl-2 ml-2 mt-3 mb-1 fas fa-info text-dark"></i></a> */}
-              {/* </OverlayTrigger> */}
-
-              {/* <CopyToClipboard tip="Copy tag to use in contract NatSpec" getContent={() => '@custom:dev-run-script file_path'} direction='top'>
-                <button className="btn remixui_copyButton  ml-2 mt-3 mb-1 text-dark">
-                  <i className="remixui_copyIcon far fa-copy" aria-hidden="true"></i>
-                </button>
-              </CopyToClipboard> */}
             </div>
           </div>
         </header>

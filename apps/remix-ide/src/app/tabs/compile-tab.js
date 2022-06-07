@@ -13,7 +13,7 @@ const profile = {
   name: 'solidity',
   displayName: 'Dfx compiler',
   icon: 'assets/img/solidity.webp',
-  description: 'Compile solidity contracts',
+  description: 'Compile dfx canisters',
   kind: 'compiler',
   permission: true,
   location: 'sidePanel',

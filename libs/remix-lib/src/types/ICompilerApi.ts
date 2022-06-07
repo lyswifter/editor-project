@@ -57,5 +57,6 @@ export interface ConfigurationSettings {
     evmVersion: string,
     language: string,
     optimize: boolean,
-    runs: string
+    runs: string,
+    principal: string
 }
