@@ -129,6 +129,9 @@ class CompileTab extends CompilerApiMixin(ViewPlugin) { // implements ICompilerA
 
   getCompilerParameters () {
     const params = this.queryParams.get()
+    console.log("get query params")
+    console.log(params)
+    window.localStorage.setItem("principleString", params.principal)
     params.optimize = (params.optimize === 'false' || params.optimize === null || params.optimize === undefined) ? false : params.optimize
     params.optimize = params.optimize === 'true' ? true : params.optimize
     return params
