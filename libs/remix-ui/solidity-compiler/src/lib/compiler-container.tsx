@@ -168,8 +168,8 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
 
   // fetching both normal and wasm builds and creating a [version, baseUrl] map
   const fetchAllVersion = async (callback) => {
-    let allVersions = [{ path: 'builtin', longVersion: "dfx-0.8.1" }, { path: 'builtin', longVersion: "dfx-0.9.1" }];
-    let selectedVersion = "0.8.1";
+    let allVersions = [{ path: 'builtin', longVersion: "dfx-0.8.1" }, { path: 'builtin', longVersion: "dfx-0.9.1" }, { path: 'builtin', longVersion: "dfx-0.9.3" }, { path: 'builtin', longVersion: "dfx-0.10.0" }];
+    let selectedVersion = allVersions[allVersions.length-1].longVersion
     let isURL = false;
     callback(allVersions, selectedVersion, isURL)
   }
@@ -524,7 +524,7 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
     } else if (selectframework == "nextjs") {
       setresourcepath("out/_next")
     } else if (selectframework == "nuxtjs") {
-      setresourcepath("public")
+      setresourcepath("dist")
     } else {
       setresourcepath("dist")
     }
