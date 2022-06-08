@@ -529,12 +529,14 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
       setresourcepath("dist")
     }
 
+    let gitrepourl = "https://github.com/" + cloneurl + "/" + reponame + ".git"
+
     try {
       axios.get(tiggerBuildUrl, {
         params: {
             framework: selectframework,
             reponame: reponame,
-            repourl: cloneurl,
+            repourl: gitrepourl,
             branch: selectbranch,
             location: location,
             canistername: canistername,
