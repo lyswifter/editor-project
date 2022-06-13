@@ -445,10 +445,10 @@ export const RemixUiTerminal = (props: RemixUiTerminalProps) => {
       <div className="remix_ui_terminal_bar d-flex">
         <div className="remix_ui_terminal_menu d-flex w-100 align-items-center position-relative border-top border-dark bg-light" ref={terminalMenu} data-id="terminalToggleMenu">
           <i className={`mx-2 remix_ui_terminal_toggleTerminal fas ${isOpen ? 'fa-angle-double-down' : 'fa-angle-double-up'}`} data-id="terminalToggleIcon" onClick={handleToggleTerminal}></i>
-          <div className="mx-2 remix_ui_terminal_console" id="clearConsole" data-id="terminalClearConsole" onClick={handleClearConsole} >
+          {/* <div className="mx-2 remix_ui_terminal_console" id="clearConsole" data-id="terminalClearConsole" onClick={handleClearConsole} >
             <i className="fas fa-ban" aria-hidden="true" title="Clear console"
             ></i>
-          </div>
+          </div> */}
           {/* <div className="mx-2" title='Pending Transactions'>0</div> */}
           {/* <div className="pt-1 h-80 mx-3 align-items-center remix_ui_terminal_listenOnNetwork custom-control custom-checkbox">
             <input

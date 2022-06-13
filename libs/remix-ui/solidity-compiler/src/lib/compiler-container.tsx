@@ -517,7 +517,7 @@ export const CompilerContainer = (props: CompilerContainerProps) => {
 
   function deployAction() {
     let principle = window.localStorage.getItem("principleString");
-    window.localStorage.setItem("REPO_NAME", reponame)
+    window.localStorage.setItem("REPO_NAME", canistername)
 
     if (selectframework == "reactjs") {
       setresourcepath("build")
